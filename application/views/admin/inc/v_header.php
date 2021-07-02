@@ -12,53 +12,52 @@
 
 
 <script src="<?php echo base_url(); ?>public/admin/js/jquery-1.11.1.min.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/chart.min.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/chart-data.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/easypiechart.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/easypiechart-data.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo base_url(); ?>public/admin/js/bootstrap-table.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/chart.min.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/chart-data.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/easypiechart.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/easypiechart-data.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/js/bootstrap-table.js"></script>
 
 
-    
-    <script>
-        !function ($) {
-            $(document).on("click","ul.nav li.parent > a > span.icon", function(){        
-                $(this).find('em:first').toggleClass("glyphicon-minus");      
-            }); 
-            $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-        }(window.jQuery);
 
-        $(window).on('resize', function () {
-          if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-        })
-        $(window).on('resize', function () {
-          if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-        })
-    </script>
-
-    <script>
-        $('#calendar').datepicker({
+<script>
+    ! function($) {
+        $(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+            $(this).find('em:first').toggleClass("glyphicon-minus");
         });
+        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+    }(window.jQuery);
 
-        !function ($) {
-            $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
-                $(this).find('em:first').toggleClass("glyphicon-minus");      
-            }); 
-            $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-        }(window.jQuery);
+    $(window).on('resize', function() {
+        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+    })
+    $(window).on('resize', function() {
+        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+    })
+</script>
 
-        $(window).on('resize', function () {
-          if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-        })
-        $(window).on('resize', function () {
-          if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-        })
-    </script>      
+<script>
+    $('#calendar').datepicker({});
+
+    ! function($) {
+        $(document).on("click", "ul.nav li.parent > a > span.icon", function() {
+            $(this).find('em:first').toggleClass("glyphicon-minus");
+        });
+        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+    }(window.jQuery);
+
+    $(window).on('resize', function() {
+        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+    })
+    $(window).on('resize', function() {
+        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+    })
+</script>
 
 
-    <nav class="navbar navbar-light navbar-fixed-top" style="background-color: blueviolet;" role="navigation">
+<nav class="navbar navbar-light navbar-fixed-top" style="background-color: blueviolet;" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
@@ -86,43 +85,58 @@
         </div>
 
     </div><!-- /.container-fluid -->
-</nav>     
+</nav>
 
 
-    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 
     <ul class="nav menu">
 
         <!-- LEVEL ADMIN2 : OWNER -->
-      
 
-            <li class="<?php if($this->uri->uri_string() == 'admin/beranda') { echo 'active'; }?>"><a href="<?php echo base_url();?>admin/beranda"><svg class="glyph stroked dashboard-dial">
-                        <use xlink:href="#stroked-dashboard-dial"></use>
-                    </svg> Dashboard</a></li>
-            <li class="<?php if($this->uri->uri_string() == 'admin/profil') { echo 'active'; }?>"><a href="<?php echo base_url(); ?>admin/profil"><svg class="glyph stroked calendar">
-                        <use xlink:href="#stroked-male-user"></use>
-                    </svg>Profil Resto</a></li>
-            <li class="<?php if($this->uri->uri_string() == 'admin/daftar_menu') { echo 'active'; }?>"><a href="<?php echo base_url(); ?>admin/daftar_menu"><svg class="glyph stroked calendar">
-                        <use xlink:href="#stroked-male-user"></use>
-                    </svg>Daftar Menu</a></li>
-            <li class="<?php if($this->uri->uri_string() == 'admin/meja') { echo 'active'; }?>"><a href="<?php echo base_url(); ?>admin/meja"><svg class="glyph stroked open folder">
-                        <use xlink:href="#stroked-male-user" />
-                    </svg>Meja</a></li>
-            <li class="<?php if($this->uri->uri_string() == 'admin/kategori') { echo 'active'; }?>"><a href="<?php echo base_url(); ?>admin/kategori"><svg class="glyph stroked calendar">
-                        <use xlink:href="#stroked-pen-tip"></use>
-                    </svg>Kategori</a></li>
-            <li><a href="<?php echo base_url(); ?>admin/pesanan"><svg class="glyph stroked sound on">
-                        <use xlink:href="#stroked-sound-on" />
-                    </svg>Pesanan</a></li>
-            <li><a href="<?php echo base_url(); ?>admin/list_pesanan"><svg class="glyph stroked calendar">
-                        <use xlink:href="#stroked-male-user"></use>
-                    </svg>List Pesanan</a></li>
-            <li><a href="<?php echo base_url(); ?>admin/laporan"><svg class="glyph stroked sound on">
-                        <use xlink:href="#stroked-sound-on" />
-                    </svg>Laporan</a></li>
-            <li role="presentation" class="divider"></li>
 
-           
+        <li class="<?php if ($this->uri->uri_string() == 'admin/beranda') {
+                        echo 'active';
+                    } ?>"><a href="<?php echo base_url(); ?>admin/beranda"><svg class="glyph stroked dashboard-dial">
+                    <use xlink:href="#stroked-dashboard-dial"></use>
+                </svg> Dashboard</a></li>
+        <li class="<?php if ($this->uri->uri_string() == 'admin/profil') {
+                        echo 'active';
+                    } ?>"><a href="<?php echo base_url(); ?>admin/profil"><svg class="glyph stroked calendar">
+                    <use xlink:href="#stroked-male-user"></use>
+                </svg>Profil Resto</a></li>
+        <li class="<?php if ($this->uri->uri_string() == 'admin/daftar_menu') {
+                        echo 'active';
+                    } ?>"><a href="<?php echo base_url(); ?>admin/daftar_menu"><svg class="glyph stroked calendar">
+                    <use xlink:href="#stroked-male-user"></use>
+                </svg>Daftar Menu</a></li>
+        <li class="<?php if ($this->uri->uri_string() == 'admin/meja') {
+                        echo 'active';
+                    } ?>"><a href="<?php echo base_url(); ?>admin/meja"><svg class="glyph stroked open folder">
+                    <use xlink:href="#stroked-male-user" />
+                </svg>Meja</a></li>
+        <li class="<?php if ($this->uri->uri_string() == 'admin/kategori') {
+                        echo 'active';
+                    } ?>"><a href="<?php echo base_url(); ?>admin/kategori"><svg class="glyph stroked calendar">
+                    <use xlink:href="#stroked-pen-tip"></use>
+                </svg>Kategori</a></li>
+        <li class="<?php if ($this->uri->uri_string() == 'admin/metode') {
+                        echo 'active';
+                    } ?>"><a href="<?php echo base_url(); ?>admin/metode"><svg class="glyph stroked calendar">
+                    <use xlink:href="#stroked-pen-tip"></use>
+                </svg>Metode</a></li>
+        <li><a href="<?php echo base_url(); ?>admin/pesanan"><svg class="glyph stroked sound on">
+                    <use xlink:href="#stroked-sound-on" />
+                </svg>Pesanan</a></li>
+        <li><a href="<?php echo base_url(); ?>admin/list_pesanan"><svg class="glyph stroked calendar">
+                    <use xlink:href="#stroked-male-user"></use>
+                </svg>List Pesanan</a></li>
+        <li><a href="<?php echo base_url(); ?>admin/laporan"><svg class="glyph stroked sound on">
+                    <use xlink:href="#stroked-sound-on" />
+                </svg>Laporan</a></li>
+        <li role="presentation" class="divider"></li>
+
+
 
     </ul>
 
