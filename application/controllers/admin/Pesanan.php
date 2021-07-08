@@ -24,6 +24,7 @@ class Pesanan extends CI_Controller
 
         $data['meja'] = $this->mm->get_data('meja')->result();
         $data['daftar_menu'] = $this->mm->get_data('daftar_menu')->result();
+        $data['metode'] = $this->mm->get_data('metode')->result();
 
         $relation = [
             'pelanggan' => [
@@ -40,8 +41,6 @@ class Pesanan extends CI_Controller
 
         $data['pesanan'] = $this->mm->get_related_data('pesanan', $relation, [], $selected)->result();
 
-        // print_r($data['pesanan']);
-        // die;
         $this->load->view('admin/inc/v_header');
         $this->load->view('admin/v_pesanan', $data);
         $this->load->view('admin/inc/v_footer');
@@ -72,6 +71,7 @@ class Pesanan extends CI_Controller
             $where_pesanan['id_pesanan'] = $id_pesanan;
             $pesanan = $this->db->get_where('pesanan', $where_pesanan)->row();
             $kode_pesanan = $pesanan->kode_pesanan;
+            $kode_transaksi = $pesanan->kode_transaksi;
             $this->save_detail_pesanan($kode_pesanan);
 
             // update pesanan
@@ -92,16 +92,72 @@ class Pesanan extends CI_Controller
                 $jumlah_pesan += $data->jumlah;
                 $jumlah_bayar += $data->harga;
             }
+
+            // pesanan
             $data_update['jumlah_pesan'] = $jumlah_pesan;
             $data_update['jumlah_bayar'] = $jumlah_bayar;
+
+            // transaksi
+            $data_update_trx['jumlah_pesan'] = $jumlah_pesan;
+            $data_update_trx['jumlah_harga'] = $jumlah_bayar;
+
             $where_pesanan_update['kode_pesanan'] = $kode_pesanan;
+            $where_transaksi_update['kode_transaksi'] = $kode_transaksi;
+            // update pesanan
             $this->mm->update_data($where_pesanan_update, $data_update, 'pesanan');
+            // update transaksi
+            $this->mm->update_data($where_transaksi_update, $data_update_trx, 'transaksi');
             // end update pesanan
 
             $this->session->set_flashdata('sukses', "Data Berhasil Disimpan");
-            redirect('admin//pesanan');
+            redirect('admin/pesanan');
         }
     }
+
+    public function bayar()
+    {
+        $this->form_validation->set_rules('id_metode', 'Metode', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->index();
+        } else {
+            $kode_transaksi = $this->db->get_where('pesanan', ['id_pesanan' => $_POST['id_pesanan']])->row()->kode_transaksi;
+            // update transaksi
+            $data['id_metode'] = $_POST['id_metode'];
+            $data['jumlah_bayar'] = $_POST['jumlah_bayar'];
+
+            $where['kode_transaksi'] = $kode_transaksi;
+            $this->mm->update_data($where, $data, 'transaksi');
+            $this->session->set_flashdata('sukses', "Data Berhasil Disimpan Cetak Struk untuk detail");
+            redirect('admin/pesanan');
+        }
+    }
+
+    public function print_nota()
+    {
+        $this->load->view("admin/v_print_nota");
+        // error_reporting(0);
+        // require FCPATH . "vendor/autoload.php";
+
+        // $faktur = $this->mm->pdf($kode_po);
+
+        //print_r($faktur);
+
+        //exit();
+
+
+
+        // $dompdf = new Dompdf\Dompdf();
+        // $html = $this->load->view("admin/v_print_faktur", [
+        //     "faktur" => $faktur
+        // ], true);
+
+        // $dompdf->loadHTML($html);
+        // $dompdf->render();
+        // $filename = "Faktur";
+        // $dompdf->stream($filename . '.pdf', array('Attachment' => 0));
+    }
+
 
     protected function save_pelanggan()
     {
@@ -118,16 +174,21 @@ class Pesanan extends CI_Controller
         $config_psn['table'] = 'pesanan';
         $config_psn['kode'] = 'PSN';
 
-        // kode_pesanan
+        // kode_transaksi
         $config_trx['kolom'] = 'kode_transaksi';
-        $config_trx['table'] = 'pesanan';
+        $config_trx['table'] = 'transaksi';
         $config_trx['kode'] = 'TRX';
 
+        // save ke table transaksi
+        $data_trx['kode_transaksi'] =  $this->mm->genkode($config_trx);
+        $id_transaksi = $this->mm->insert($data_trx, 'transaksi');
+        $kode_transaksi =  $this->db->get_where('transaksi', ['id_transaksi' => $id_transaksi])->row()->kode_transaksi;;
 
+        // save ke table pesanan
         $data['id_pelanggan'] = $id_pelanggan;
         $data['id_meja'] = $_POST['id_meja'];
         $data['kode_pesanan'] = $this->mm->genkode($config_psn);
-        $data['kode_transaksi'] = $this->mm->genkode($config_trx);
+        $data['kode_transaksi'] =  $kode_transaksi;
         $data['tgl_pemesanan'] = $_POST['tgl_pemesanan'];
         $data['jam_pesan'] = $_POST['jam_pesan'];
         $data['jumlah_pesan'] = '';
@@ -140,7 +201,6 @@ class Pesanan extends CI_Controller
         } else {
             $data['status'] = 'proses';  //'menunggu', 'terbooking', 'proses', 'selesai'
         }
-
         return $this->mm->insert($data, 'pesanan');
     }
 

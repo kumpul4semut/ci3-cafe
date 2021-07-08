@@ -71,11 +71,13 @@
                                             <td data-field="jumlah_pesan"><?php echo $row->jumlah_pesan; ?></td>
                                             <td data-field="jumlah_bayar"><?php echo rp_format($row->jumlah_bayar); ?></td>
                                             <td data-field="status"><?php echo $row->status; ?></td>
-                                            <!-- <td>
+                                            <td>
 
-                                                <a type="button" data-toggle="modal" data-target="#modal-edit<?= $row->id_pesanan; ?>" class="ubah btn btn-primary btn-xs" style="cursor: pointer;"><i class="glyphicon glyphicon-edit"></i></a>
-                                                <a class="hapus btn btn-danger btn-xs" href="<?php echo site_url('admin/pesanan/hapus/' . $row->id_pesanan); ?>" onclick="return confirm('Apakah Anda Ingin Menghapus Data <?= $row->kode_pesanan; ?> ?');" class="btn btn-danger btn-circle" data-popup="tooltip" data-placement="top" title="Hapus Data"><i class="glyphicon glyphicon-trash"></i></a>
-                                            </td> -->
+                                                <a type="button" data-toggle="modal" data-target="#modal-bayar<?= $row->id_pesanan; ?>" class="ubah btn btn-primary btn-xs" style="cursor: pointer;">Bayar</a>
+                                                <a type="button" class="ubah btn btn-warning btn-xs" style="cursor: pointer;">Ubah Status</a>
+                                                <a type="button" class="ubah btn btn-success btn-xs" style="cursor: pointer;">Detail</a>
+                                                <a href="<?= base_url('admin/pesanan/print_nota') ?>" class="ubah btn btn-default btn-xs" style="cursor: pointer;">Cetak</a>
+                                            </td>
 
                                         </tr>
                                     <?php endforeach; ?>
@@ -87,8 +89,7 @@
                 </div>
 
 
-                <!-- pesanan modal -->
-
+                <!-- pesanan modal tambah-->
                 <div class="modal fade bs-example-modal-lg" id="modal-tambah" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -124,7 +125,7 @@
                                         <input type="date" class="form-control" placeholder="Tanggal" name="tgl_pemesanan">
                                     </div>
                                     <div class="form-group">
-                                        <label for="jam">Jam</label>
+                                        <label for="jam">Jam Booking</label>
                                         <input type="time" class="form-control" id="jam" placeholder="Nomor telepon" name="jam_pesan">
                                     </div>
                                     <div class="form-group">
@@ -156,7 +157,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-
                                     <center><button type="submit" class="btn btn-default">Submit</button></center>
                                 </form>
 
@@ -175,11 +175,58 @@
                 <!-- /.modal -->
 
 
+                <!-- modal bayar -->
+                <?php $no = 0;
+                foreach ($pesanan as $row) : $no++; ?>
+                    <div class="modal fade bs-example-modal-lg" id="modal-bayar<?= $row->id_pesanan ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myLargeModalLabel">Bayar</h4>
+                                    <h5><b><?= 'Total Bayar ' . rp_format($row->jumlah_bayar); ?></b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="<?php echo base_url() ?>admin/pesanan/bayar" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="id_pesanan" value="<?= $row->id_pesanan ?>">
+                                        <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Metode Pembayaran</label>
+                                                        <select class="form-control" name="id_metode">
+                                                            <option value="">Pilih</option>
+                                                            <?php foreach ($metode as $data) : ?>
+                                                                <option value="<?php echo $data->id_metode ?>"><?php echo $data->nama_metode ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="jumlah_bayar">Jumlah Bayar</label>
+                                                        <input type="number" class="form-control" id="jumlah_bayar" placeholder="" name="jumlah_bayar">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <center><button type="submit" class="btn btn-success">Simpan</button></center>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger text-left" data-dismiss="modal">Tutup</button>
 
+                                </div>
+
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                <?php endforeach; ?>
 
                 <!-- kategori modal -->
-                <?php $no = 0;
-                foreach ($kategori as $row) : $no++; ?>
+                <!-- <?php $no = 0;
+                        foreach ($kategori as $row) : $no++; ?>
                     <div class="modal fade bs-example-modal-lg" id="modal-edit<?= $row->id_kategori ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -223,11 +270,11 @@
 
                             </div>
                             <!-- /.modal-content -->
-                        </div>
-                        <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
-                <?php endforeach; ?>
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    <?php endforeach; ?> -->
 
 
 
@@ -235,36 +282,36 @@
 
 
 
-                <?php echo $this->session->flashdata("msg"); ?>
+    <?php echo $this->session->flashdata("msg"); ?>
 
 
-                <script>
-                    $(function() {
-                        $('#hover, #striped, #condensed').click(function() {
-                            var classes = 'table';
+    <script>
+        $(function() {
+            $('#hover, #striped, #condensed').click(function() {
+                var classes = 'table';
 
-                            if ($('#hover').prop('checked')) {
-                                classes += ' table-hover';
-                            }
-                            if ($('#condensed').prop('checked')) {
-                                classes += ' table-condensed';
-                            }
-                            $('#table-style').bootstrapTable('destroy')
-                                .bootstrapTable({
-                                    classes: classes,
-                                    striped: $('#striped').prop('checked')
-                                });
-                        });
+                if ($('#hover').prop('checked')) {
+                    classes += ' table-hover';
+                }
+                if ($('#condensed').prop('checked')) {
+                    classes += ' table-condensed';
+                }
+                $('#table-style').bootstrapTable('destroy')
+                    .bootstrapTable({
+                        classes: classes,
+                        striped: $('#striped').prop('checked')
                     });
+            });
+        });
 
-                    function rowStyle(row, index) {
-                        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+        function rowStyle(row, index) {
+            var classes = ['active', 'success', 'info', 'warning', 'danger'];
 
-                        if (index % 2 === 0 && index / 2 < classes.length) {
-                            return {
-                                classes: classes[index / 2]
-                            };
-                        }
-                        return {};
-                    }
-                </script>
+            if (index % 2 === 0 && index / 2 < classes.length) {
+                return {
+                    classes: classes[index / 2]
+                };
+            }
+            return {};
+        }
+    </script>
