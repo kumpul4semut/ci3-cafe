@@ -1,0 +1,10 @@
+.home {
+    background-image: url("../../../asset/img/bg_cafe.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+    overflow: hidden;
+    margin: 0;
+    /* position: relative; */
+}

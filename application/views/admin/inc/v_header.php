@@ -67,22 +67,66 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<?php echo base_url(); ?>admin/beranda"><span>BUGEL</span> CORNER</a>
-            <ul class="user-menu">
-                <li class="dropdown pull-right">
+            <div class="user-menu">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user">
                             <use xlink:href="#stroked-male-user"></use>
                         </svg> <?php echo $this->session->userdata('nama'); ?> <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="<?php echo base_url(); ?>profile/view"><svg class="glyph stroked male-user">
+                        <!-- <li><a href="<?php echo base_url(); ?>profile/view"><svg class="glyph stroked male-user">
                                     <use xlink:href="#stroked-male-user"></use>
-                                </svg> Profile</a></li>
+                                </svg> Profile</a></li> -->
                         <li><a href="<?php echo base_url(); ?>admin/beranda/logout"><svg class="glyph stroked cancel">
                                     <use xlink:href="#stroked-cancel"></use>
                                 </svg> Logout</a></li>
                     </ul>
                 </li>
+            </div>
+            <ul class="user-menu navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> <span class="badge" id="jumlah-notif"></span></a>
+
+                    <ul class="dropdown-menu" role="menu" id="notif">
+                    </ul>
+                </li>
             </ul>
+            <!-- <?php if ($this->session->userdata('level') == 'koki') : ?>
+                <ul class="user-menu navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> <span class="badge" id="jumlah-notif-koki"></span></a>
+
+                        <ul class="dropdown-menu" role="menu" id="notif-koki">
+                        </ul>
+                    </li>
+                </ul>
+            <?php else : ?>
+            <?php endif ?>
+
+            <?php if ($this->session->userdata('level') == 'pelayan') : ?>
+                <ul class="user-menu navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> <span class="badge" id="jumlah-notif-koki"></span></a>
+
+                        <ul class="dropdown-menu" role="menu" id="notif-pelayan">
+                        </ul>
+                    </li>
+                </ul>
+            <?php else : ?>
+            <?php endif ?>
+
+            <?php if ($this->session->userdata('level') == 'kasir') : ?>
+                <ul class="user-menu navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> <span class="badge" id="jumlah-notif-kasir"></span></a>
+                        <ul class="dropdown-menu" role="menu" id="notif-kasir">
+                        </ul>
+                    </li>
+                </ul>
+            <?php else : ?>
+            <?php endif ?> -->
         </div>
+        </ul>
+    </div>
 
     </div><!-- /.container-fluid -->
 </nav>
@@ -93,47 +137,80 @@
     <ul class="nav menu">
 
         <!-- LEVEL ADMIN2 : OWNER -->
-
-
-        <li class="<?php if ($this->uri->uri_string() == 'admin/beranda') {
-                        echo 'active';
-                    } ?>"><a href="<?php echo base_url(); ?>admin/beranda"><svg class="glyph stroked dashboard-dial">
-                    <use xlink:href="#stroked-dashboard-dial"></use>
-                </svg> Dashboard</a></li>
-        <li class="<?php if ($this->uri->uri_string() == 'admin/profil') {
-                        echo 'active';
-                    } ?>"><a href="<?php echo base_url(); ?>admin/profil"><svg class="glyph stroked calendar">
-                    <use xlink:href="#stroked-male-user"></use>
-                </svg>Profil Resto</a></li>
-        <li class="<?php if ($this->uri->uri_string() == 'admin/daftar_menu') {
-                        echo 'active';
-                    } ?>"><a href="<?php echo base_url(); ?>admin/daftar_menu"><svg class="glyph stroked calendar">
-                    <use xlink:href="#stroked-male-user"></use>
-                </svg>Daftar Menu</a></li>
-        <li class="<?php if ($this->uri->uri_string() == 'admin/meja') {
-                        echo 'active';
-                    } ?>"><a href="<?php echo base_url(); ?>admin/meja"><svg class="glyph stroked open folder">
-                    <use xlink:href="#stroked-male-user" />
-                </svg>Meja</a></li>
-        <li class="<?php if ($this->uri->uri_string() == 'admin/kategori') {
-                        echo 'active';
-                    } ?>"><a href="<?php echo base_url(); ?>admin/kategori"><svg class="glyph stroked calendar">
-                    <use xlink:href="#stroked-pen-tip"></use>
-                </svg>Kategori</a></li>
-        <li class="<?php if ($this->uri->uri_string() == 'admin/metode') {
-                        echo 'active';
-                    } ?>"><a href="<?php echo base_url(); ?>admin/metode"><svg class="glyph stroked calendar">
-                    <use xlink:href="#stroked-pen-tip"></use>
-                </svg>Metode</a></li>
-        <li><a href="<?php echo base_url(); ?>admin/pesanan"><svg class="glyph stroked sound on">
-                    <use xlink:href="#stroked-sound-on" />
-                </svg>Pesanan</a></li>
-        <li><a href="<?php echo base_url(); ?>admin/list_pesanan"><svg class="glyph stroked calendar">
-                    <use xlink:href="#stroked-male-user"></use>
-                </svg>List Pesanan</a></li>
-        <li><a href="<?php echo base_url(); ?>admin/laporan"><svg class="glyph stroked sound on">
-                    <use xlink:href="#stroked-sound-on" />
-                </svg>Laporan</a></li>
+        <?php if ($this->session->userdata('level') == 'owner') : ?>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/beranda') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/beranda"><svg class="glyph stroked dashboard-dial">
+                        <use xlink:href="#stroked-dashboard-dial"></use>
+                    </svg> Dashboard</a></li>
+            <!-- <li class="<?php if ($this->uri->uri_string() == 'admin/profil') {
+                                echo 'active';
+                            } ?>"><a href="<?php echo base_url(); ?>admin/profil"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-male-user"></use>
+                    </svg>Profil Resto</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/daftar_menu') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/daftar_menu"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-male-user"></use>
+                    </svg>Daftar Menu</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/meja') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/meja"><svg class="glyph stroked open folder">
+                        <use xlink:href="#stroked-male-user" />
+                    </svg>Meja</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/kategori') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/kategori"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-pen-tip"></use>
+                    </svg>Kategori</a></li> -->
+            <!-- <li class="<?php if ($this->uri->uri_string() == 'admin/metode') {
+                                echo 'active';
+                            } ?>"><a href="<?php echo base_url(); ?>admin/metode"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-pen-tip"></use>
+                    </svg>Metode</a></li> -->
+            <li><a href="<?php echo base_url(); ?>admin/laporan"><svg class="glyph stroked sound on">
+                        <use xlink:href="#stroked-sound-on" />
+                    </svg>Laporan</a></li>
+        <?php elseif ($this->session->userdata('level') == 'kasir') : ?>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/beranda') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/beranda"><svg class="glyph stroked dashboard-dial">
+                        <use xlink:href="#stroked-dashboard-dial"></use>
+                    </svg> Dashboard</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/profil') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/profil"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-male-user"></use>
+                    </svg>Profil Resto</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/daftar_menu') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/daftar_menu"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-male-user"></use>
+                    </svg>Daftar Menu</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/meja') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/meja"><svg class="glyph stroked open folder">
+                        <use xlink:href="#stroked-male-user" />
+                    </svg>Meja</a></li>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/kategori') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/kategori"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-pen-tip"></use>
+                    </svg>Kategori</a></li>
+            <li><a href="<?php echo base_url(); ?>admin/pesanan"><svg class="glyph stroked sound on">
+                        <use xlink:href="#stroked-sound-on" />
+                    </svg>Pesanan</a></li>
+        <?php elseif ($this->session->userdata('level') == 'koki' || $this->session->userdata('level') == 'pelayan') : ?>
+            <li class="<?php if ($this->uri->uri_string() == 'admin/daftar_menu') {
+                            echo 'active';
+                        } ?>"><a href="<?php echo base_url(); ?>admin/daftar_menu"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-male-user"></use>
+                    </svg>Daftar Menu</a></li>
+            <li><a href="<?php echo base_url(); ?>admin/list_pesanan"><svg class="glyph stroked calendar">
+                        <use xlink:href="#stroked-male-user"></use>
+                    </svg>List Pesanan</a></li>
+        <?php else : ?>
+        <?php endif; ?>
         <li role="presentation" class="divider"></li>
 
 

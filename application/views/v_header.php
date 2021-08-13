@@ -7,13 +7,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <?php foreach ($pengaturan as $p) { ?> -->
-    <!-- faviocn -->
-    <!-- <link rel="shortcut icon" href="<?= base_url() ?>uploads/pengaturan/<?= $p->icon ?>"> -->
-    <!-- page title -->
 
-    <title>gfnfg</title>
-    <!-- <?php } ?> -->
+    <title><?php echo $profile->nama_resto ?></title>
     <!--All Css here -->
     <!--Bootstrap  css-->
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/bootstrap/css/bootstrap.min.css">
@@ -33,9 +28,11 @@
     <!--sidebar-menu css-->
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/sidebar-menu.css">
     <!--Style css-->
-    <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/style.css">
+    <!-- <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/style.css"> -->
+    <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/mystyle.css">
     <!--Responsive css-->
     <link rel="stylesheet" href="<?= base_url() ?>public/assets/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style type="text/css">
         .ml11 {
             font-weight: 700;
@@ -74,21 +71,22 @@
 
 <body>
     <!-- Start Preloader Area -->
-    <div class="preloader_area">
+    <!-- <div class="preloader_area">
         <div class="lodar">
             <ul>
                 <li>B</li>
                 <li>C</li>
             </ul>
         </div>
-    </div><!-- End Preloader Area -->
+    </div> -->
+    <!-- End Preloader Area -->
     <!-- Satrt seomun_header  -->
-    <header class="seomun_header seomun_header_2">
+    <header class="seomun_header seomun_header_2 bg-dark">
         <div class="header_container_2">
             <div class="row align-items-center">
                 <div class="col-lg-2">
                     <div class="seomun_logo brand_icon">
-                        <a href="" target="_blank"><img src="<?php echo base_url(); ?>asset/img/0001-removebg-preview.png" class="img-fluid" alt=""></a>
+                        <a href="<?php echo base_url() ?>"><img src="<?php echo base_url(); ?>asset/img/0001-removebg-preview.png" class="img-fluid" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -106,3 +104,9 @@
             </div>
         </div>
     </header><!-- End seomun_header  -->
+    <!-- <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4"><?php echo $profile->nama_resto ?></h1>
+            <p class="lead"><?php echo $profile->tentang ?></p>
+        </div>
+    </div> -->

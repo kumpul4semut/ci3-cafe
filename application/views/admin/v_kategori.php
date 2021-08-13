@@ -97,7 +97,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label align="left">Nama kategori :</label>
-                                    <input type="text" name="nama_kategori" class="form-control">
+                                    <input type="text" name="nama_kategori" class="form-control" oninvalid="this.setCustomValidity('Form Ini Harus Di isi')" onchange="this.setCustomValidity('')" required>
                                 </div>
                             </div>
 

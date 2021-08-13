@@ -1,24 +1,22 @@
 <!-- Start seomun_footer area -->
-<footer class="seomun_footer seomun_footer_1">
-    <div class="container">
-        <div class="widget_area widget_area_1">
-            <div class="row justify-content-center">
-            </div>
-        </div>
-        <div class="back-to-top show">
-            <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-chevron-up"></i></button>
-        </div>
-        <div class="seomun_copyright">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright_text text-center">
-                        <p></p>
+<div class="container-fluid mt-5 bg-dark">
+    <div class="mx-5">
+        <div class="row mb-4 ">
+            <div class="col-md-4 col-sm-11 col-xs-11">
+                <div class="footer-text pull-left">
+                    <div class="d-flex">
+                        <h1 class="font-weight-bold mr-2 px-3" style="color:#16151a; background-color:#957bda"> B </h1>
+                        <h1 style="color: #957bda">Bugel Corner</h1>
                     </div>
+                    <p class="card-text text-white"><?php echo $profile->alamat ?></p>
+                    <div class="social mt-2 mb-3"> <i class="fa fa-facebook-official fa-lg"></i> <i class="fa fa-instagram fa-lg"></i> <i class="fa fa-twitter fa-lg"></i> <i class="fa fa-linkedin-square fa-lg"></i> <i class="fa fa-facebook"></i> </div>
                 </div>
             </div>
+            <div class="col-md-2 col-sm-1 col-xs-1 mb-2"></div>
+
         </div>
     </div>
-</footer>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
 <script>
     //Get the button
@@ -109,6 +107,35 @@
 <script src="<?= base_url() ?>public/assets/js/sidebar-menu.js"></script>
 <!-- custom js  -->
 <script src="<?= base_url() ?>public/assets/js/custom.js"></script>
+<script type="text/javascript">
+    function getNewCaptcha() {
+        // body...
+        $.ajax({
+            url: "<?php echo base_url('home/getNewCaptcha'); ?>",
+            success: function(response) {
+                $('#Captcha-image').html(response);
+            }
+        });
+    }
+    getNewCaptcha();
+
+    function onSelectMenu(id_menu = null) {
+        var name = `jumlah_${id_menu}`
+        if ($("input[name=" + name + "]").prop('required')) {
+            // $("input[name=" + name + "]").hide()
+            $("input[name=" + name + "]").prop("required", false)
+        } else {
+            // $("input[name=" + name + "]").show()
+            $("input[name=" + name + "]").prop("required", true)
+        }
+
+    }
+    $(document).ready(function() {
+        $('#pilih-meja').on('click', function() {
+            $('#input-jumlah').valid();
+        });
+    })
+</script>
 </body>
 
 </html>
